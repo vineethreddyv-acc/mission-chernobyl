@@ -2,17 +2,19 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 import time
+from chromedriver_py import binary_path
+from pathlib import *    
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--headless')
 
+driver = webdriver.Chrome(executable_path=binary_path, chrome_options=chrome_options)
 
 driver.get("https://stg-portal.cnh.com/DPLogin/")
 time.sleep(5)
@@ -96,4 +98,3 @@ time.sleep(5)
 driver.find_element_by_xpath("/html/body/div[2]/div[2]/div/mat-dialog-container/vms-product-activate/mat-dialog-content/vms-product-purchase-success/div/mat-dialog-actions/button/span[1]").click()
 time.sleep(60)
 driver.refresh()
-
